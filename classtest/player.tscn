@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://db8a7xw6xpst4"]
+
+[ext_resource type="Script" path="res://testplayer.gd" id="1_jcd6o"]
+[ext_resource type="Texture2D" uid="uid://cl3atgmirt4f0" path="res://idle-side0.png" id="2_vxte7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fili"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vxte7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k1eyn"]
+radius = 0.211693
+height = 0.720691
+
+[sub_resource type="QuadMesh" id="QuadMesh_p8vc1"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20629, 0)
+script = ExtResource("1_jcd6o")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0.040407, 0.504307, 1.30255)
+fov = 96.8396
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_0fili")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_k1eyn")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.474702, 0)
+visible = false
+mesh = SubResource("QuadMesh_p8vc1")
+emission_shape = 1
+emission_sphere_radius = 1.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5

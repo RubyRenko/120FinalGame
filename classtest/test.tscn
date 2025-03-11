@@ -1,0 +1,191 @@
+[gd_scene load_steps=20 format=3 uid="uid://bon57hc6hm7e4"]
+
+[ext_resource type="Script" path="res://testplayer.gd" id="1_dd44i"]
+[ext_resource type="Script" path="res://outbounds.gd" id="2_6wckf"]
+[ext_resource type="Texture2D" uid="uid://cl3atgmirt4f0" path="res://idle-side0.png" id="2_cyeui"]
+[ext_resource type="Script" path="res://pillar_1.gd" id="4_x18n3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fili"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cyeui")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k1eyn"]
+radius = 0.211693
+height = 0.720691
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ub2g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kfxgv"]
+size = Vector3(5.87787, 0.630249, 5.43083)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y3w3r"]
+size = Vector3(38.091, 1, 42.1922)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1xr6t"]
+size = Vector3(1, 1.57225, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3o1j3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_65nkx"]
+size = Vector3(1, 0.843628, 1)
+
+[sub_resource type="Animation" id="Animation_gy0bw"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -1.64646, 0.694852, -1.45459)
+
+[sub_resource type="Animation" id="Animation_xbg8m"]
+resource_name = "destroyed"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -1.64646, 0.694852, -1.45459, 0.133333, 1, -1.64646, 0.302301, -1.45459, 0.433333, 1, -1.64646, -0.224064, -1.45459, 0.866667, 1, -1.64646, -1.85481, -1.45459)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0666667, 1, 0.00114711, 0.0304559, 0.0376204, 0.998827, 0.133333, 1, -0.00308894, 0.0303205, -0.101304, 0.994389, 0.233333, 1, -0.0217807, 0.129834, -0.00753731, 0.991268, 0.333333, 1, 0.0126243, 0.114377, -0.0636936, 0.991313, 0.4, 1, -0.0110005, 0.197331, 0.0269641, 0.979904, 0.5, 1, -0.0459471, 0.0924233, -0.0382173, 0.993925, 0.566667, 1, 0.0728136, -0.0267813, -0.0318563, 0.996477, 0.633333, 1, 0.0564708, 0.0906921, -0.071426, 0.991708, 0.9, 1, -0.00151272, -0.0953382, -0.0116179, 0.995376, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sq4mg"]
+_data = {
+"RESET": SubResource("Animation_gy0bw"),
+"destroyed": SubResource("Animation_xbg8m")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2fnuf"]
+size = Vector3(1, 1.41797, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hiuym"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vds5x"]
+size = Vector3(1, 0.85791, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a3lje"]
+size = Vector3(6.99297, 1.58691, 0.001)
+
+[node name="Main" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20629, 0)
+script = ExtResource("1_dd44i")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0.040407, 0.504307, 1.30255)
+fov = 96.8396
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_0fili")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_k1eyn")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130981, -0.157776, 0.20105)
+size = Vector3(5.96021, 0.684448, 5.42456)
+material = SubResource("StandardMaterial3D_1ub2g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136932, -0.184875, 0.209663)
+shape = SubResource("BoxShape3D_kfxgv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.769274, -0.555338, 0.315938, 0.213953, 0.689845, 0.69162, -0.602031, -0.464449, 0.649496, 0, 4.78076, 3.79528)
+
+[node name="Outbounds" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.68294, 0)
+script = ExtResource("2_6wckf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Outbounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92733, 0, -4.59368)
+shape = SubResource("BoxShape3D_y3w3r")
+
+[node name="Pillar1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64646, 0.694852, -1.45459)
+script = ExtResource("4_x18n3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71876, 0)
+shape = SubResource("BoxShape3D_1xr6t")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pillar1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(1, 2, 1)
+material = SubResource("StandardMaterial3D_3o1j3")
+
+[node name="DestructArea" type="Area3D" parent="Pillar1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06707, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar1/DestructArea"]
+transform = Transform3D(0.999996, 0, 0, 0, 0.999996, 0, 0, 0, 1, 0, -0.078186, 0)
+shape = SubResource("BoxShape3D_65nkx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pillar1"]
+libraries = {
+"": SubResource("AnimationLibrary_sq4mg")
+}
+
+[node name="Pillar2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.119346, 0.694852, -1.45459)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pillar2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210388, 0)
+size = Vector3(1, 1.42078, 1)
+material = SubResource("StandardMaterial3D_3o1j3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.208984, 0)
+shape = SubResource("BoxShape3D_2fnuf")
+
+[node name="Pillar3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8067, 0.694852, -1.45459)
+physics_material_override = SubResource("PhysicsMaterial_hiuym")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0745697, 0)
+size = Vector3(1, 0.850861, 1)
+material = SubResource("StandardMaterial3D_3o1j3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0710449, 0)
+shape = SubResource("BoxShape3D_vds5x")
+
+[node name="Boundaries" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.104645, 0.293457, 3.07466)
+shape = SubResource("BoxShape3D_a3lje")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 0.999951, 0.00991331, 0, -0.00991331, 0.999951, -0.168327, 0.293457, -2.64251)
+shape = SubResource("BoxShape3D_a3lje")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Boundaries"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.89719, 0.293457, 0.00410557)
+shape = SubResource("BoxShape3D_a3lje")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Boundaries"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.20778, 0.293457, -0.25989)
+shape = SubResource("BoxShape3D_a3lje")
+
+[connection signal="body_entered" from="Outbounds" to="Outbounds" method="_on_body_entered"]
+[connection signal="body_entered" from="Pillar1/DestructArea" to="Pillar1" method="_on_destruct_area_body_entered"]
+[connection signal="body_exited" from="Pillar1/DestructArea" to="Pillar1" method="_on_destruct_area_body_exited"]

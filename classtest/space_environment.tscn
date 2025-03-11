@@ -1,0 +1,233 @@
+[gd_scene load_steps=15 format=3 uid="uid://be3dsjxglhhus"]
+
+[ext_resource type="PackedScene" uid="uid://db8a7xw6xpst4" path="res://player.tscn" id="1_3sae1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3fr06"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fosjf"]
+albedo_color = Color(0.496914, 0.373065, 0.255029, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llat1"]
+transparency = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2uiok"]
+margin = 0.01
+
+[sub_resource type="FogMaterial" id="FogMaterial_ju2x3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sapwh"]
+next_pass = SubResource("FogMaterial_ju2x3")
+albedo_color = Color(0.506063, 0.627919, 0.941935, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mrtuu"]
+height = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6ya30"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o386o"]
+albedo_color = Color(0.313726, 0.541176, 0.745098, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvjbu"]
+albedo_color = Color(0.697286, 0.638764, 0.895122, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1pos"]
+albedo_color = Color(0.505882, 0.227451, 0.376471, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xo0l"]
+albedo_color = Color(1, 0.541176, 0.545098, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymtpw"]
+albedo_color = Color(0.922263, 0.886339, 0.982542, 0.803922)
+
+[node name="SpaceEnvironment" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_3sae1")]
+transform = Transform3D(1.99919, 0, -0.0570296, 0, 2, 0, 0.0570296, 0, 1.99919, 0.0887852, 12.0194, 0.768228)
+
+[node name="Sun" type="StaticBody3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -4.23402, 114.772, -82.5049)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Sun"]
+transform = Transform3D(0.0666667, 0, 0, 0, 0.0664847, -0.004922, 0, 0.004922, 0.0664847, 0.1405, 0.0361547, -0.0952015)
+light_color = Color(0.840538, 0.958427, 0.99741, 1)
+light_energy = 50.0
+light_indirect_energy = 100.0
+light_size = 100.0
+light_specular = 10.0
+omni_range = 500.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sun"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.00470657)
+shape = SubResource("SphereShape3D_3fr06")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Sun/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+flip_faces = true
+rings = 8
+material = SubResource("StandardMaterial3D_llat1")
+
+[node name="Planet" type="StaticBody3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -16.0953, 1.83133, -17.7935)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+material = SubResource("StandardMaterial3D_sapwh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Planet"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0432468, 0.09248, -0.017403)
+shape = SubResource("CylinderShape3D_mrtuu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet/CollisionShape3D2"]
+transform = Transform3D(1, 0, 0, 0, 0.005, 0, 0, 0, 1, -0.00325876, 0.00384624, 0.000821412)
+mesh = SubResource("CylinderMesh_6ya30")
+surface_material_override/0 = SubResource("StandardMaterial3D_o386o")
+
+[node name="Planet2" type="StaticBody3D" parent="."]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 134.682, 83.2851, 42.9135)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet2"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet2/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+material = SubResource("StandardMaterial3D_wvjbu")
+metadata/_edit_lock_ = true
+
+[node name="Planet3" type="StaticBody3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -19.7823, 98.3922, 148.169)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet3"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet3/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_v1pos")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Planet3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0432468, 0.09248, -0.017403)
+shape = SubResource("CylinderShape3D_mrtuu")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet3/CollisionShape3D2"]
+transform = Transform3D(1, 0, 0, 0, 0.005, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_6ya30")
+surface_material_override/0 = SubResource("StandardMaterial3D_0xo0l")
+metadata/_edit_lock_ = true
+
+[node name="Asteroid" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30.4372, 53.7397, -7.15528)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="Asteroid2" type="StaticBody3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 75.2535, 115.849, 42.5394)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid2"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid2/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="Asteroid3" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 1.24796, 59.0527, 91.559)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid3"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid3/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="Asteroid4" type="StaticBody3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -50.3342, 33.7458, 39.5186)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid4"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid4/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="Asteroid5" type="StaticBody3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -119.564, 43.3433, 338.855)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid5"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid5/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="Asteroid6" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 61.867, 128.245, 125.109)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid6"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid6/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+material = SubResource("StandardMaterial3D_ymtpw")
+metadata/_edit_lock_ = true
+
+[node name="Asteroid7" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -29.954, 86.7581, -60.9017)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid7"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_2uiok")
+metadata/_edit_lock_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid7/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_fosjf")
+radial_segments = 14
+rings = 8
+metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -8)
+sky_mode = 2
