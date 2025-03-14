@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://db8a7xw6xpst4"]
+[gd_scene load_steps=7 format=3 uid="uid://db8a7xw6xpst4"]
 
 [ext_resource type="Script" path="res://testplayer.gd" id="1_jcd6o"]
 [ext_resource type="Texture2D" uid="uid://cl3atgmirt4f0" path="res://idle-side0.png" id="2_vxte7"]
+[ext_resource type="AudioStream" uid="uid://bqm77uldvp3fc" path="res://space-slash-236689.mp3" id="3_1uw2e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0fili"]
 animations = [{
@@ -44,3 +45,6 @@ emission_shape = 1
 emission_sphere_radius = 1.0
 scale_amount_min = 0.1
 scale_amount_max = 0.5
+
+[node name="movementsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_1uw2e")

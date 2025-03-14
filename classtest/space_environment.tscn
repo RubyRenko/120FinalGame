@@ -1,6 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://be3dsjxglhhus"]
+[gd_scene load_steps=20 format=3 uid="uid://be3dsjxglhhus"]
 
 [ext_resource type="PackedScene" uid="uid://db8a7xw6xpst4" path="res://player.tscn" id="1_3sae1"]
+[ext_resource type="Script" path="res://space_environment.gd" id="1_08ep6"]
+[ext_resource type="AudioStream" uid="uid://dx5q1y37enc2j" path="res://ambient-soundscapes-007-space-atmosphere-304974.mp3" id="3_f0dnw"]
+[ext_resource type="Script" path="res://addons/audio_manager_3d/audio_manager_3d.gd" id="4_57e7t"]
+[ext_resource type="Script" path="res://addons/audio_manager_3d/audio_manager_resource.gd" id="5_nwvks"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3fr06"]
 
@@ -39,7 +43,26 @@ albedo_color = Color(1, 0.541176, 0.545098, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymtpw"]
 albedo_color = Color(0.922263, 0.886339, 0.982542, 0.803922)
 
+[sub_resource type="Resource" id="Resource_dju44"]
+script = ExtResource("5_nwvks")
+audio_name = "space-music"
+audio_stream = ExtResource("3_f0dnw")
+use_clipper = false
+start_time = 0.0
+end_time = 0.0
+volume_db = 0.0
+max_db = 3.0
+pitch_scale = 1.0
+max_distance = 100.0
+unit_size = 10.0
+loop = false
+loop_offset = 0.0
+auto_play = false
+max_polyphony = 1
+panning_strength = 1.0
+
 [node name="SpaceEnvironment" type="Node3D"]
+script = ExtResource("1_08ep6")
 
 [node name="Player" parent="." instance=ExtResource("1_3sae1")]
 transform = Transform3D(1.99919, 0, -0.0570296, 0, 2, 0, 0.0570296, 0, 1.99919, 0.0887852, 12.0194, 0.768228)
@@ -231,3 +254,11 @@ metadata/_edit_lock_ = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -8)
 sky_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f0dnw")
+autoplay = true
+
+[node name="AudioManager3D" type="Node3D" parent="."]
+script = ExtResource("4_57e7t")
+audios = Array[ExtResource("5_nwvks")]([SubResource("Resource_dju44")])
