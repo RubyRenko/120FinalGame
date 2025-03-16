@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b1qyp0wtir3pu"
+path="res://.godot/imported/dialogueSun.dialogue-6f87680404f0622fc14660fcdcfd0d85.tres"
+
+[deps]
+
+source_file="res://Talky_Talky_Dialogue/dialogueSun.dialogue"
+dest_files=["res://.godot/imported/dialogueSun.dialogue-6f87680404f0622fc14660fcdcfd0d85.tres"]
+
+[params]
+
+defaults=true

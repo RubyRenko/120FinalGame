@@ -4,6 +4,7 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 10.0
 var speed = 5.0
 
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():

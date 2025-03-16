@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://c5nepynkb0ha8"
+path="res://.godot/imported/dialogue1.dialogue-ed3d539db23905cf49d3daf6cce58a85.tres"
+
+[deps]
+
+source_file="res://Talky_Talky_Dialogue/dialogue1.dialogue"
+dest_files=["res://.godot/imported/dialogue1.dialogue-ed3d539db23905cf49d3daf6cce58a85.tres"]
+
+[params]
+
+defaults=true
