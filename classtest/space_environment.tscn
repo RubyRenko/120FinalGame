@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://be3dsjxglhhus"]
+[gd_scene load_steps=35 format=3 uid="uid://be3dsjxglhhus"]
 
 [ext_resource type="PackedScene" uid="uid://db8a7xw6xpst4" path="res://player.tscn" id="1_3sae1"]
 [ext_resource type="Script" path="res://space_environment.gd" id="1_08ep6"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://planet_2.gd" id="5_hck22"]
 [ext_resource type="Script" path="res://addons/audio_manager_3d/audio_manager_resource.gd" id="5_nwvks"]
 [ext_resource type="Script" path="res://planet_3.gd" id="6_upq0r"]
-[ext_resource type="AudioStream" uid="uid://trr7evpi7nie" path="res://ui-click-menu-modern-interface-select-small-01-230473.mp3" id="8_24aqp"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wmqr2"]
 panorama = ExtResource("1_kfmsp")
@@ -181,7 +180,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o386o")
 shape = SubResource("SphereShape3D_p6k40")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SpaceEnvironment/Planet"]
-stream = ExtResource("8_24aqp")
+stream = ExtResource("5_5sfpe")
 volume_db = 4.572
 
 [node name="Planet2" type="StaticBody3D" parent="SpaceEnvironment"]
@@ -206,7 +205,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("SphereShape3D_jcbxx")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SpaceEnvironment/Planet2"]
-stream = ExtResource("8_24aqp")
+stream = ExtResource("5_5sfpe")
 volume_db = 3.048
 
 [node name="Planet3" type="StaticBody3D" parent="SpaceEnvironment"]
