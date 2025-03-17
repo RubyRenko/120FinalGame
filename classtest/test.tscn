@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://testplayer.gd" id="1_dd44i"]
 [ext_resource type="Script" path="res://outbounds.gd" id="2_6wckf"]
-[ext_resource type="Texture2D" uid="uid://cl3atgmirt4f0" path="res://idle-side0.png" id="2_cyeui"]
+[ext_resource type="Texture2D" uid="uid://cl3atgmirt4f0" path="res://sprites/idle-side0.png" id="2_cyeui"]
 [ext_resource type="Script" path="res://pillar_1.gd" id="4_x18n3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0fili"]
