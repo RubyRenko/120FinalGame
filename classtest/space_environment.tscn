@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://be3dsjxglhhus"]
+[gd_scene load_steps=34 format=3 uid="uid://be3dsjxglhhus"]
 
 [ext_resource type="PackedScene" uid="uid://db8a7xw6xpst4" path="res://player.tscn" id="1_3sae1"]
 [ext_resource type="Script" path="res://space_environment.gd" id="1_08ep6"]
+[ext_resource type="Texture2D" uid="uid://cwtj1dbder8qf" path="res://space.png" id="1_kfmsp"]
 [ext_resource type="Script" path="res://planet.gd" id="3_7xtp1"]
 [ext_resource type="Script" path="res://sun.gd" id="3_08ycs"]
 [ext_resource type="AudioStream" uid="uid://dx5q1y37enc2j" path="res://ambient-soundscapes-007-space-atmosphere-304974.mp3" id="3_f0dnw"]
@@ -10,6 +11,32 @@
 [ext_resource type="Script" path="res://planet_2.gd" id="5_hck22"]
 [ext_resource type="Script" path="res://addons/audio_manager_3d/audio_manager_resource.gd" id="5_nwvks"]
 [ext_resource type="Script" path="res://planet_3.gd" id="6_upq0r"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wmqr2"]
+panorama = ExtResource("1_kfmsp")
+
+[sub_resource type="Sky" id="Sky_37x7y"]
+sky_material = SubResource("PanoramaSkyMaterial_wmqr2")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_q72f0"]
+background_mode = 2
+sky = SubResource("Sky_37x7y")
+ambient_light_source = 3
+reflected_light_source = 2
+glow_enabled = true
+glow_intensity = 0.5
+glow_bloom = 1.0
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.658764, 0.618879, 0.911504, 1)
+fog_light_energy = 0.75
+fog_sun_scatter = 1.0
+fog_density = 0.02
+fog_depth_curve = 2.37841
+adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kx1nt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3fr06"]
 
@@ -78,235 +105,241 @@ auto_play = false
 max_polyphony = 1
 panning_strength = 1.0
 
-[node name="SpaceEnvironment" type="Node3D"]
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_q72f0")
+camera_attributes = SubResource("CameraAttributesPractical_kx1nt")
+
+[node name="SpaceEnvironment" type="Node3D" parent="."]
 script = ExtResource("1_08ep6")
 
-[node name="Player" parent="." instance=ExtResource("1_3sae1")]
-transform = Transform3D(1.99919, 0, -0.0570296, 0, 2, 0, 0.0570296, 0, 1.99919, 0.0887852, 12.0194, 0.768228)
+[node name="Player" parent="SpaceEnvironment" instance=ExtResource("1_3sae1")]
+transform = Transform3D(0.390515, 0, 0.312247, 0, 0.5, 0, -0.312247, 0, 0.390515, 0.729235, 6.36148, 0.768228)
 
-[node name="Sun" type="StaticBody3D" parent="."]
+[node name="Sun" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -4.23402, 114.772, -82.5049)
 script = ExtResource("3_08ycs")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Sun"]
+[node name="OmniLight3D" type="OmniLight3D" parent="SpaceEnvironment/Sun"]
 transform = Transform3D(0.0666667, 0, 0, 0, 0.0664847, -0.004922, 0, 0.004922, 0.0664847, 0.1405, 0.0361547, -0.0952015)
-light_color = Color(0.840538, 0.958427, 0.99741, 1)
+light_color = Color(0.72549, 0.890196, 0.996078, 1)
 light_energy = 50.0
 light_indirect_energy = 100.0
-light_size = 100.0
-light_specular = 10.0
+light_size = 75.0
+light_specular = 15.0
+distance_fade_begin = 1290.87
 omni_range = 500.0
+omni_attenuation = 0.9
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sun"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Sun"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.00470657)
 shape = SubResource("SphereShape3D_3fr06")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Sun/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Sun/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 flip_faces = true
 rings = 8
 material = SubResource("StandardMaterial3D_llat1")
 
-[node name="Area3D" type="Area3D" parent="Sun"]
+[node name="Area3D" type="Area3D" parent="SpaceEnvironment/Sun"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sun/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Sun/Area3D"]
 shape = SubResource("SphereShape3D_tgaw5")
 
-[node name="Planet" type="StaticBody3D" parent="."]
+[node name="Planet" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -16.0953, 1.83133, -17.7935)
 script = ExtResource("3_7xtp1")
 dialogue_resource = ExtResource("4_oky2s")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_sapwh")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Planet"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SpaceEnvironment/Planet"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0432468, 0.09248, -0.017403)
 shape = SubResource("CylinderShape3D_mrtuu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet/CollisionShape3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpaceEnvironment/Planet/CollisionShape3D2"]
 transform = Transform3D(1, 0, 0, 0, 0.005, 0, 0, 0, 1, -0.00325876, 0.00384624, 0.000821412)
 mesh = SubResource("CylinderMesh_6ya30")
 surface_material_override/0 = SubResource("StandardMaterial3D_o386o")
 
-[node name="DialogueTrigger" type="Area3D" parent="Planet"]
+[node name="DialogueTrigger" type="Area3D" parent="SpaceEnvironment/Planet"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/DialogueTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet/DialogueTrigger"]
 shape = SubResource("SphereShape3D_p6k40")
 
-[node name="Planet2" type="StaticBody3D" parent="."]
+[node name="Planet2" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 134.682, 83.2851, 42.9135)
 script = ExtResource("5_hck22")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet2"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet2/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet2/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_wvjbu")
 metadata/_edit_lock_ = true
 
-[node name="Dialogue2Trigger" type="Area3D" parent="Planet2"]
+[node name="Dialogue2Trigger" type="Area3D" parent="SpaceEnvironment/Planet2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet2/Dialogue2Trigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet2/Dialogue2Trigger"]
 shape = SubResource("SphereShape3D_jcbxx")
 
-[node name="Planet3" type="StaticBody3D" parent="."]
+[node name="Planet3" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -19.7823, 98.3922, 148.169)
 script = ExtResource("6_upq0r")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet3"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Planet3/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet3/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_v1pos")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Planet3"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SpaceEnvironment/Planet3"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0432468, 0.09248, -0.017403)
 shape = SubResource("CylinderShape3D_mrtuu")
 metadata/_edit_lock_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet3/CollisionShape3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpaceEnvironment/Planet3/CollisionShape3D2"]
 transform = Transform3D(1, 0, 0, 0, 0.005, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_6ya30")
 surface_material_override/0 = SubResource("StandardMaterial3D_0xo0l")
 metadata/_edit_lock_ = true
 
-[node name="Area3D" type="Area3D" parent="Planet3"]
+[node name="Area3D" type="Area3D" parent="SpaceEnvironment/Planet3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet3/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Planet3/Area3D"]
 shape = SubResource("SphereShape3D_k4x5f")
 
-[node name="Asteroid" type="StaticBody3D" parent="."]
+[node name="Asteroid" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30.4372, 53.7397, -7.15528)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="Asteroid2" type="StaticBody3D" parent="."]
+[node name="Asteroid2" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 75.2535, 115.849, 42.5394)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid2"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid2/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid2/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="Asteroid3" type="StaticBody3D" parent="."]
+[node name="Asteroid3" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 1.24796, 59.0527, 91.559)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid3"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid3/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid3/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="Asteroid4" type="StaticBody3D" parent="."]
+[node name="Asteroid4" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -50.3342, 33.7458, 39.5186)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid4"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid4/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid4/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="Asteroid5" type="StaticBody3D" parent="."]
+[node name="Asteroid5" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -119.564, 43.3433, 338.855)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid5"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid5/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid5/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="Asteroid6" type="StaticBody3D" parent="."]
+[node name="Asteroid6" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 61.867, 128.245, 125.109)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid6"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid6/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid6/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_ymtpw")
 metadata/_edit_lock_ = true
 
-[node name="Asteroid7" type="StaticBody3D" parent="."]
+[node name="Asteroid7" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -29.954, 86.7581, -60.9017)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Asteroid7"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Asteroid7/CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid7/CollisionShape3D"]
 material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SpaceEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -8)
 sky_mode = 2
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SpaceEnvironment"]
 stream = ExtResource("3_f0dnw")
 volume_db = -3.748
 autoplay = true
 
-[node name="AudioManager3D" type="Node3D" parent="."]
+[node name="AudioManager3D" type="Node3D" parent="SpaceEnvironment"]
 script = ExtResource("4_57e7t")
 audios = Array[ExtResource("5_nwvks")]([SubResource("Resource_dju44")])
 
-[connection signal="body_entered" from="Sun/Area3D" to="Sun" method="_on_area_3d_body_entered"]
-[connection signal="body_entered" from="Planet/DialogueTrigger" to="Planet" method="_on_dialogue_trigger_body_entered"]
-[connection signal="body_entered" from="Planet2/Dialogue2Trigger" to="Planet2" method="_on_dialogue_2_trigger_body_entered"]
-[connection signal="body_entered" from="Planet3/Area3D" to="Planet3" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="SpaceEnvironment/Sun/Area3D" to="SpaceEnvironment/Sun" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="SpaceEnvironment/Planet/DialogueTrigger" to="SpaceEnvironment/Planet" method="_on_dialogue_trigger_body_entered"]
+[connection signal="body_entered" from="SpaceEnvironment/Planet2/Dialogue2Trigger" to="SpaceEnvironment/Planet2" method="_on_dialogue_2_trigger_body_entered"]
+[connection signal="body_entered" from="SpaceEnvironment/Planet3/Area3D" to="SpaceEnvironment/Planet3" method="_on_area_3d_body_entered"]

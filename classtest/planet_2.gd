@@ -16,8 +16,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-	
 func _on_dialogue_2_trigger_body_entered(body: Node3D) -> void:
 	if body.name == "Player": 
 		DialogueManager.show_example_dialogue_balloon(dialogue_resource, dialogue_start)
