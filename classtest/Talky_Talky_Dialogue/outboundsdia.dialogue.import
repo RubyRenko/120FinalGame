@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://dckvwq118kp22"
+path="res://.godot/imported/outboundsdia.dialogue-40c6b9307ee70b6464d24f6351e039e0.tres"
+
+[deps]
+
+source_file="res://Talky_Talky_Dialogue/outboundsdia.dialogue"
+dest_files=["res://.godot/imported/outboundsdia.dialogue-40c6b9307ee70b6464d24f6351e039e0.tres"]
+
+[params]
+
+defaults=true

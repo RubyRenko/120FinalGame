@@ -1,7 +1,6 @@
-[gd_scene load_steps=35 format=3 uid="uid://be3dsjxglhhus"]
+[gd_scene load_steps=42 format=3 uid="uid://be3dsjxglhhus"]
 
 [ext_resource type="PackedScene" uid="uid://db8a7xw6xpst4" path="res://player.tscn" id="1_3sae1"]
-[ext_resource type="Script" path="res://space_environment.gd" id="1_08ep6"]
 [ext_resource type="Texture2D" uid="uid://cwtj1dbder8qf" path="res://space.png" id="1_kfmsp"]
 [ext_resource type="Script" path="res://planet.gd" id="3_7xtp1"]
 [ext_resource type="Script" path="res://sun.gd" id="3_08ycs"]
@@ -12,6 +11,11 @@
 [ext_resource type="Script" path="res://planet_2.gd" id="5_hck22"]
 [ext_resource type="Script" path="res://addons/audio_manager_3d/audio_manager_resource.gd" id="5_nwvks"]
 [ext_resource type="Script" path="res://planet_3.gd" id="6_upq0r"]
+[ext_resource type="Texture2D" uid="uid://dq0ml6fg5cxkr" path="res://textures/grunge-wall-texture.jpg" id="7_r0443"]
+[ext_resource type="Texture2D" uid="uid://dq1l0cflhgian" path="res://textures/colin-watts-u4ijcCaprRc-unsplash.jpg" id="10_gntyy"]
+[ext_resource type="Material" uid="uid://bk4gowg0rmv0g" path="res://textures/Planet.tres" id="10_y2msi"]
+[ext_resource type="Material" uid="uid://c5nkb0h7f3ksi" path="res://textures/asteroid.tres" id="12_q55uo"]
+[ext_resource type="Script" path="res://in_bounds.gd" id="12_qh8w8"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wmqr2"]
 panorama = ExtResource("1_kfmsp")
@@ -53,40 +57,54 @@ radius = 1.17283
 [sub_resource type="SphereShape3D" id="SphereShape3D_2uiok"]
 margin = 0.01
 
-[sub_resource type="FogMaterial" id="FogMaterial_ju2x3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smtgl"]
+albedo_color = Color(0.482353, 1, 1, 1)
+albedo_texture = ExtResource("10_gntyy")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sapwh"]
-next_pass = SubResource("FogMaterial_ju2x3")
-albedo_color = Color(0.506063, 0.627919, 0.941935, 1)
+albedo_color = Color(0.435902, 0.285789, 0.615186, 1)
+albedo_texture = ExtResource("7_r0443")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mrtuu"]
 height = 0.01
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqhgn"]
+albedo_color = Color(1, 0.427451, 0.345098, 1)
+albedo_texture = ExtResource("7_r0443")
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_6ya30"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o386o"]
-albedo_color = Color(0.313726, 0.541176, 0.745098, 1)
+albedo_color = Color(0.193781, 0.211139, 0.514957, 1)
+albedo_texture = ExtResource("10_gntyy")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p6k40"]
 radius = 1.50119
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq324"]
+albedo_color = Color(1, 0.470588, 1, 1)
+albedo_texture = ExtResource("7_r0443")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvjbu"]
 albedo_color = Color(0.697286, 0.638764, 0.895122, 1)
+albedo_texture = ExtResource("7_r0443")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jcbxx"]
 radius = 0.808974
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1pos"]
-albedo_color = Color(0.505882, 0.227451, 0.376471, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xo0l"]
-albedo_color = Color(1, 0.541176, 0.545098, 1)
+albedo_color = Color(1, 0.184314, 0.545098, 1)
+albedo_texture = ExtResource("7_r0443")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k4x5f"]
 radius = 1.49141
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_045dg"]
+albedo_texture = ExtResource("7_r0443")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymtpw"]
 albedo_color = Color(0.922263, 0.886339, 0.982542, 0.803922)
+albedo_texture = ExtResource("10_gntyy")
 
 [sub_resource type="Resource" id="Resource_dju44"]
 script = ExtResource("5_nwvks")
@@ -106,15 +124,17 @@ auto_play = false
 max_polyphony = 1
 panning_strength = 1.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4jo7k"]
+size = Vector3(100, 100, 100)
+
 [node name="WorldEnvironment" type="WorldEnvironment"]
 environment = SubResource("Environment_q72f0")
 camera_attributes = SubResource("CameraAttributesPractical_kx1nt")
 
 [node name="SpaceEnvironment" type="Node3D" parent="."]
-script = ExtResource("1_08ep6")
 
 [node name="Player" parent="SpaceEnvironment" instance=ExtResource("1_3sae1")]
-transform = Transform3D(0.390515, 0, 0.312247, 0, 0.5, 0, -0.312247, 0, 0.390515, 0.729235, 6.36148, 0.768228)
+transform = Transform3D(0.390515, 0, 0.312247, 0, 0.5, 0, -0.312247, 0, 0.390515, 0, 50, 0)
 
 [node name="Sun" type="StaticBody3D" parent="SpaceEnvironment"]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -4.23402, 114.772, -82.5049)
@@ -122,14 +142,15 @@ script = ExtResource("3_08ycs")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SpaceEnvironment/Sun"]
 transform = Transform3D(0.0666667, 0, 0, 0, 0.0664847, -0.004922, 0, 0.004922, 0.0664847, 0.1405, 0.0361547, -0.0952015)
-light_color = Color(0.72549, 0.890196, 0.996078, 1)
-light_energy = 50.0
-light_indirect_energy = 100.0
-light_size = 75.0
-light_specular = 15.0
-distance_fade_begin = 1290.87
-omni_range = 500.0
-omni_attenuation = 0.9
+light_energy = 8.404
+light_indirect_energy = 5.495
+light_volumetric_fog_energy = 3.101
+light_size = 1.0
+light_specular = 13.222
+distance_fade_begin = 587.52
+distance_fade_length = 920.22
+omni_range = 1000.0
+omni_attenuation = 0.6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/Sun"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.00470657)
@@ -160,7 +181,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = SubResource("StandardMaterial3D_smtgl")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_sapwh")
@@ -171,6 +192,7 @@ shape = SubResource("CylinderShape3D_mrtuu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpaceEnvironment/Planet/CollisionShape3D2"]
 transform = Transform3D(1, 0, 0, 0, 0.005, 0, 0, 0, 1, -0.00325876, 0.00384624, 0.000821412)
+material_override = SubResource("StandardMaterial3D_cqhgn")
 mesh = SubResource("CylinderMesh_6ya30")
 surface_material_override/0 = SubResource("StandardMaterial3D_o386o")
 
@@ -193,7 +215,9 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet2/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tq324")
+material_overlay = ExtResource("10_y2msi")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_wvjbu")
@@ -218,7 +242,8 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet3/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_v1pos")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("10_y2msi")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
@@ -252,9 +277,9 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
 radial_segments = 14
 rings = 8
+material = ExtResource("12_q55uo")
 metadata/_edit_lock_ = true
 
 [node name="Asteroid2" type="StaticBody3D" parent="SpaceEnvironment"]
@@ -266,7 +291,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid2/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
@@ -280,7 +305,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid3/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
@@ -294,7 +319,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid4/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
@@ -308,9 +333,10 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid5/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
+material = SubResource("StandardMaterial3D_045dg")
 metadata/_edit_lock_ = true
 
 [node name="Asteroid6" type="StaticBody3D" parent="SpaceEnvironment"]
@@ -322,7 +348,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid6/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
 material = SubResource("StandardMaterial3D_ymtpw")
@@ -337,7 +363,7 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Asteroid7/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_fosjf")
+material_override = ExtResource("12_q55uo")
 radial_segments = 14
 rings = 8
 metadata/_edit_lock_ = true
@@ -355,7 +381,16 @@ autoplay = true
 script = ExtResource("4_57e7t")
 audios = Array[ExtResource("5_nwvks")]([SubResource("Resource_dju44")])
 
+[node name="InBounds" type="Area3D" parent="SpaceEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05194, 41.66, -68.2406)
+script = ExtResource("12_qh8w8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceEnvironment/InBounds"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 8.2533, 99.2617, 0.338947)
+shape = SubResource("BoxShape3D_4jo7k")
+
 [connection signal="body_entered" from="SpaceEnvironment/Sun/Area3D" to="SpaceEnvironment/Sun" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="SpaceEnvironment/Planet/DialogueTrigger" to="SpaceEnvironment/Planet" method="_on_dialogue_trigger_body_entered"]
 [connection signal="body_entered" from="SpaceEnvironment/Planet2/Dialogue2Trigger" to="SpaceEnvironment/Planet2" method="_on_dialogue_2_trigger_body_entered"]
 [connection signal="body_entered" from="SpaceEnvironment/Planet3/Area3D" to="SpaceEnvironment/Planet3" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="SpaceEnvironment/InBounds" to="SpaceEnvironment/InBounds" method="_on_body_exited"]

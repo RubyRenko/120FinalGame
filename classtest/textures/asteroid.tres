@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c5nkb0h7f3ksi"]
+
+[ext_resource type="Texture2D" uid="uid://dik653noitviq" path="res://textures/cut-tile-shade-durable-wallpaper.jpg" id="1_12ex2"]
+
+[resource]
+render_priority = 1
+albedo_color = Color(0.697695, 0.603426, 0.653405, 1)
+albedo_texture = ExtResource("1_12ex2")
