@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dik653noitviq"
 path.s3tc="res://.godot/imported/cut-tile-shade-durable-wallpaper.jpg-9e2f0ab2902c4210d8c826c0ca1aacfe.s3tc.ctex"
+path.etc2="res://.godot/imported/cut-tile-shade-durable-wallpaper.jpg-9e2f0ab2902c4210d8c826c0ca1aacfe.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/cut-tile-shade-durable-wallpaper.jpg"
-dest_files=["res://.godot/imported/cut-tile-shade-durable-wallpaper.jpg-9e2f0ab2902c4210d8c826c0ca1aacfe.s3tc.ctex"]
+dest_files=["res://.godot/imported/cut-tile-shade-durable-wallpaper.jpg-9e2f0ab2902c4210d8c826c0ca1aacfe.s3tc.ctex", "res://.godot/imported/cut-tile-shade-durable-wallpaper.jpg-9e2f0ab2902c4210d8c826c0ca1aacfe.etc2.ctex"]
 
 [params]
 

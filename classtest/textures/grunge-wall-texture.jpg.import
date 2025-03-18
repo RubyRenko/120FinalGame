@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dq0ml6fg5cxkr"
 path.s3tc="res://.godot/imported/grunge-wall-texture.jpg-82d2a463690e27ad2a9876df13b264ea.s3tc.ctex"
+path.etc2="res://.godot/imported/grunge-wall-texture.jpg-82d2a463690e27ad2a9876df13b264ea.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/grunge-wall-texture.jpg"
-dest_files=["res://.godot/imported/grunge-wall-texture.jpg-82d2a463690e27ad2a9876df13b264ea.s3tc.ctex"]
+dest_files=["res://.godot/imported/grunge-wall-texture.jpg-82d2a463690e27ad2a9876df13b264ea.s3tc.ctex", "res://.godot/imported/grunge-wall-texture.jpg-82d2a463690e27ad2a9876df13b264ea.etc2.ctex"]
 
 [params]
 

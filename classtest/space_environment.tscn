@@ -215,7 +215,6 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet2/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_tq324")
 material_overlay = ExtResource("10_y2msi")
 radial_segments = 14
@@ -242,7 +241,6 @@ shape = SubResource("SphereShape3D_2uiok")
 metadata/_edit_lock_ = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SpaceEnvironment/Planet3/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("10_y2msi")
 radial_segments = 14
 rings = 8
